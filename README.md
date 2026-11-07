@@ -9,20 +9,28 @@ You do however need to pass a couple of prerequisites, such as:
   
 Building is fairly simple as well:
 
-  ```bash
-    cmake -S . -B build
-  ```
+```bash
+cmake --preset debug
+```
 
-Then build the binaries using:
+Then build the binaries for debuging using:
 
-  ```bash
-    cmake --build build
-  ```
+```bash
+cmake --build --preset debug
+```
+
+
+Then build the binaries for release version using:
+
+```bash
+cmake --build --preset release
+```
 
 Running currently is also pretty simple as well:
 
-  ```bash
-    ./build/first
-  ```
+```bash
+./build/debug/apps/first
+./build/debug/tests/tests
+```
 
 Debugging: Visual Studio 2022 (Open Folder → breakpoint → F5)

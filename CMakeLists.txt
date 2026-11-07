@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.24)
 project(AutoSim LANGUAGES CXX)
 
-add_executable(first main.cpp)
+add_library(project_options INTERFACE)
+target_compile_options(project_options INTERFACE -Wall -Wextra -Wpedantic)
 
-target_compile_features(first PRIVATE cxx_std_20)
+add_subdirectory(sim)
+add_subdirectory(apps)
+add_subdirectory(tests)
