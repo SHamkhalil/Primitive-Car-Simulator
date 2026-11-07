@@ -9,20 +9,20 @@ You do however need to pass a couple of prerequisites, such as:
   
 Building is fairly simple as well:
 
-  ```bash
-    cmake -S . -B build
-  ```
+```bash
+cmake -S . -B build
+```
 
 Then build the binaries using:
 
-  ```bash
-    cmake --build build
-  ```
+```bash
+cmake --build build
+```
 
 Running currently is also pretty simple as well:
 
-  ```bash
-    ./build/first
-  ```
+```bash
+./build/first
+```
 
 Debugging: Visual Studio 2022 (Open Folder → breakpoint → F5)

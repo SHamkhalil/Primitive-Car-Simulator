@@ -1,0 +1,1 @@
+double sim_answer() { return 41.0; }
