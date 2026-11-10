@@ -10,7 +10,7 @@ FetchContent_Declare(
 FetchContent_Declare(
   raylib
   GIT_REPOSITORY https://github.com/raysan5/raylib.git
-  GIT_TAG v6.2
+  GIT_TAG 6.2
 )
 FetchContent_MakeAvailable(googletest raylib)
 
