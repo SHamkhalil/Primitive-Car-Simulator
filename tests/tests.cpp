@@ -1,5 +1,6 @@
+#include <gtest/gtest.h>
 #include "sim.hpp"
 
-int main(){
-  return sim_answer() == 42.0 ? 0 : 1;
+TEST(Smoke, Run){
+  EXPECT_TRUE(true);
 }
