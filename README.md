@@ -1,36 +1,56 @@
-Currently the program is fairly simple, ergo running it shouldn't be of difficulty
+## Building and Running the Project
 
-You do however need to pass a couple of prerequisites, such as:
+The program is currently straightforward to build and run. However, make sure your development environment meets the following prerequisites:
 
   - GCC 13.3, 
   - Ubuntu 24.04
   - CMake 3.28
   - git 2.43.0
-  
+
+### Building 
+
 Building is fairly simple as well:
 
+#### Debug Build
 ```bash
 cmake --preset debug
 ```
 
-Then build the binaries for debuging using:
+Build the Debug binaries:
 
 ```bash
 cmake --build --preset debug
 ```
 
+#### Release Build
+
+```bash
+cmake --preset release
+```
 
 Then build the binaries for release version using:
+
+Build the Release binaries:
 
 ```bash
 cmake --build --preset release
 ```
 
-Running currently is also pretty simple as well:
+
 
 ```bash
 ./build/debug/apps/first
-./build/debug/tests/tests
+```
+
+Testing - After building from the source you can run the tests using:
+
+```bash
+ctest --test-dir build/debug --output-on-failure
+```
+If you would like to run a single test use, for example:
+
+```bash
+ctest --test-dir build/debug -R SpeedConversion
 ```
 
 Debugging: Visual Studio 2022 (Open Folder → breakpoint → F5)
