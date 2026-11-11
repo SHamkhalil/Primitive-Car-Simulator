@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.24)
 project(AutoSim LANGUAGES CXX)
 
 include(FetchContent)
+include(CTest)
+
 FetchContent_Declare(
   googletest
   GIT_REPOSITORY https://github.com/google/googletest.git
@@ -16,6 +18,7 @@ FetchContent_MakeAvailable(googletest raylib)
 
 add_library(project_options INTERFACE)
 target_compile_options(project_options INTERFACE -Wall -Wextra -Wpedantic)
+add_test(NAME genTests COMMAND tests)
 
 add_subdirectory(sim)
 add_subdirectory(apps)

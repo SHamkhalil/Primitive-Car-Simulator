@@ -1,22 +1,19 @@
 #include <gtest/gtest.h>
-#include <cmath>
 
 #include "sim.hpp"
-
-#define PRECISION 100
 
 
 namespace{
   
-  TEST(ConversionTest, Positive){
-    EXPECT_EQ(16.67, (round(speedConvertKPHtoMPS(60) * PRECISION) / PRECISION));
-    EXPECT_EQ(50.00, (round(speedConvertKPHtoMPS(180) * PRECISION) / PRECISION));
-    EXPECT_EQ(6.45, (round(speedConvertKPHtoMPS(23.21) * PRECISION) / PRECISION));
+  TEST(SpeedConversion, KmhToMpsConvertsExactly){
+    EXPECT_NEAR(16.67, speedConvertKPHtoMPS(60), 0.01);
+    EXPECT_DOUBLE_EQ(50, speedConvertKPHtoMPS(180));
+    EXPECT_NEAR(6.45, speedConvertKPHtoMPS(23.21), 0.01);
   }
 
-  TEST(ConversionTest, Negative){
-    EXPECT_EQ(-1, (round(speedConvertKPHtoMPS(-60) * PRECISION) / PRECISION));
-    EXPECT_EQ(-1, (round(speedConvertKPHtoMPS(-120) * PRECISION) / PRECISION));
-    EXPECT_EQ(-1, (round(speedConvertKPHtoMPS(-50) * PRECISION) / PRECISION));
+  TEST(SpeedConversion, NegativeKmhGivesNegativeMps){
+    EXPECT_NEAR(-16.67, speedConvertKPHtoMPS(-60), 0.01);
+    EXPECT_NEAR(-33.33, speedConvertKPHtoMPS(-120), 0.01);
+    EXPECT_NEAR(-13.89, speedConvertKPHtoMPS(-50), 0.01);
   }
 }
