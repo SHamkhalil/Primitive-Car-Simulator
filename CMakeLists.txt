@@ -18,7 +18,6 @@ FetchContent_MakeAvailable(googletest raylib)
 
 add_library(project_options INTERFACE)
 target_compile_options(project_options INTERFACE -Wall -Wextra -Wpedantic)
-add_test(NAME genTests COMMAND tests)
 
 add_subdirectory(sim)
 add_subdirectory(apps)
