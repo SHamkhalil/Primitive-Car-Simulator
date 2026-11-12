@@ -1,11 +1,18 @@
 #include <gtest/gtest.h>
 #include <vector>
+#include <cmath>
 
 #include "vec3.hpp"
 
 namespace{
   constexpr double EPSILON = 1e-9;
   
+  void expectVecNear(const vec3& expected, const vec3& actual) {
+    EXPECT_NEAR(expected.m_x, actual.m_x, EPSILON);
+    EXPECT_NEAR(expected.m_y, actual.m_y, EPSILON);
+    EXPECT_NEAR(expected.m_z, actual.m_z, EPSILON);
+  }
+
   TEST(Vec3Tests, EqualityOperatorReturnsTrueForEqualVectors){
     EXPECT_EQ(vec3(1, 2, 3), vec3(1, 2, 3));
     EXPECT_EQ(vec3(3, 2, 1), vec3(3, 2, 1));
@@ -31,9 +38,7 @@ namespace{
     vec3  expectedplus(32.25, 13.35, 24.79),
           actualplus(vec3(31.13, 12.23, 23.67) + vec3(1.12, 1.12, 1.12));
 
-    EXPECT_NEAR(expectedplus.m_x, actualplus.m_x, EPSILON);
-    EXPECT_NEAR(expectedplus.m_y, actualplus.m_y, EPSILON);
-    EXPECT_NEAR(expectedplus.m_z, actualplus.m_z, EPSILON);
+    expectVecNear(expectedplus, actualplus);
 
     // subtraction
     EXPECT_EQ(vec3(-1, -1, -1), vec3(1, 2, 3) - vec3(2, 3, 4));
@@ -42,38 +47,59 @@ namespace{
     vec3  expectedminus(30.01, 11.11, 22.55),
           actualminus(vec3(31.13, 12.23, 23.67) - vec3(1.12, 1.12, 1.12));
 
-    EXPECT_NEAR(expectedminus.m_x, actualminus.m_x, EPSILON);
-    EXPECT_NEAR(expectedminus.m_y, actualminus.m_y, EPSILON);
-    EXPECT_NEAR(expectedminus.m_z, actualminus.m_z, EPSILON);
+    expectVecNear(expectedminus, actualminus);
   }
 
   TEST(Vec3Tests, ScalarMultiplicationProducesCorrectResult){
-    std::vector<vec3> _ = {vec3(1, 2, 3), vec3(2, 3, 4), vec3(12, 23, 81), vec3(1.12, 412.12231, 891.1897391)};
-    EXPECT_NEAR(1, _[0].m_x * 1, EPSILON);
-    EXPECT_NEAR(1.12, 1.12 * _[0].m_x, EPSILON);
-    EXPECT_NEAR(128.673, _[1].m_y * 42.891, EPSILON);
-    EXPECT_NEAR(0.972, 0.012 * _[2].m_z, EPSILON);
-    EXPECT_NEAR(2001.26593736, _[3].m_y * 4.856, EPSILON);
-    EXPECT_NEAR(0, 0 * _[1].m_y * 4.856, EPSILON);
+    EXPECT_EQ(vec3(2, 4, 6), vec3(1, 2, 3) * 2);
+    EXPECT_EQ(vec3(-2, -4, -6), vec3(1, 2, 3) * -2);
+    EXPECT_EQ(vec3(0, 0, 0), vec3(1, 2, 3) * 0);
+
+    expectVecNear(vec3(0.56, 206.061155, 445.59486955),
+                  vec3(1.12, 412.12231, 891.1897391) * 0.5);
+  }
+
+  TEST(Vec3Tests, ScalarDivisionProducesCorrectResults){
+    EXPECT_EQ(vec3(1, 2, 3), vec3(2, 4, 6) / 2);
+    EXPECT_EQ(vec3(-1, -2, -3), vec3(2, 4, 6) / -2);
+    EXPECT_EQ(vec3(0, 0, 0), vec3(0, 0, 0) / 2);
+
+    expectVecNear(vec3(0.5, 1.0, 1.5), vec3(1, 2, 3) / 2);
   }
 
   TEST(Vec3Tests, VectorNegationCorrectnessCheck){
-    std::vector<vec3> expected = {vec3(1, 2, 3), vec3(0, 0, 0), vec3(1.12, 412.12231, 891.1897391)},
-                      actual = {vec3(-1, -2, -3), vec3(0, 0, 0), vec3(-1.12, -412.12231, -891.1897391)};
+    std::vector<vec3> expected = {vec3(1, 2, 3), vec3(0, 0, 0), vec3(-1, 2, -3), vec3(1.12, 412.12231, 891.1897391)},
+                      actual = {vec3(-1, -2, -3), vec3(0, 0, 0), vec3(1, -2, 3), vec3(-1.12, -412.12231, -891.1897391)};
     
-    for (size_t j = 0; j < expected.size(); ++j)
-      for (size_t i = 0; i < 2; ++i)
-        EXPECT_NEAR(expected[j][i], -actual[j][i], EPSILON);
+    for (size_t i = 0; i < expected.size(); ++i) {
+      expectVecNear(expected[i], -actual[i]);
+      expectVecNear(actual[i], -(-actual[i]));
+    }
 
   }
 
-  TEST(Vec3Tests, LengthReturnsCorrectMagnitude){
+  TEST(Vec3Tests, LengthSquaredReturnsCorrectResult) {
     static_assert(vec3(3, 4, 0).lengthSquared() == 25);
 
-    std::vector<vec3> _ = {vec3(1, 2, 3), vec3(2, 3, 4), vec3(12, 23, 81), vec3(1.12, 412.12231, 891.1897391)};
-    EXPECT_NEAR(3.7416573868, _[0].length(), EPSILON);
-    EXPECT_NEAR(5.3851648071, _[1].length(), EPSILON);
-    EXPECT_NEAR(85.0529246999, _[2].length(), EPSILON);
+    EXPECT_DOUBLE_EQ(0, vec3(0, 0, 0).lengthSquared());
+    EXPECT_DOUBLE_EQ(14, vec3(1, 2, 3).lengthSquared());
+    EXPECT_DOUBLE_EQ(25, vec3(3, 4, 0).lengthSquared());
+    EXPECT_DOUBLE_EQ(29, vec3(2, 3, 4).lengthSquared());
+    EXPECT_DOUBLE_EQ(7234, vec3(12, 23, 81).lengthSquared());
+
+    EXPECT_DOUBLE_EQ(vec3(-1, -2, -3).lengthSquared(),
+                     vec3(1, 2, 3).lengthSquared());
+  }
+
+  TEST(Vec3Tests, LengthReturnsCorrectMagnitude){
+    EXPECT_NEAR(0, vec3(0, 0, 0).length(), EPSILON);
+    EXPECT_NEAR(1, vec3(1, 0, 0).length(), EPSILON);
+    EXPECT_NEAR(5, vec3(3, 4, 0).length(), EPSILON);
+    EXPECT_NEAR(std::sqrt(14.0), vec3(1, 2, 3).length(), EPSILON);
+    EXPECT_NEAR(std::sqrt(29.0), vec3(2, 3, 4).length(), EPSILON);
+    EXPECT_NEAR(std::sqrt(7234.0), vec3(12, 23, 81).length(), EPSILON);
+
+    EXPECT_NEAR(vec3(1, 2, 3).length(), vec3(-1, -2, -3).length(), EPSILON);
   }
 
   TEST(Vec3Tests, NormalizationProducesUnitVector){
@@ -94,5 +120,14 @@ namespace{
         EXPECT_NEAR(expected[i][j], actual[i][j], EPSILON);
     }
       //0.3713906764
+  }
+
+  TEST(Vec3Tests, NormalizationDoesNotModifyOriginalVector) {
+    const vec3 v(3, 4, 0);
+
+    vec3 normalized = v.normalize();
+
+    EXPECT_EQ(vec3(3, 4, 0), v);
+    expectVecNear(vec3(0.6, 0.8, 0), normalized);
   }
 }
