@@ -9,9 +9,13 @@ vec3  vec3::operator-(const vec3 &b) const{ return {m_x - b.m_x, m_y - b.m_y, m_
 
 vec3& vec3::operator-=(const vec3 &b) { m_x -= b.m_x; m_y -= b.m_y; m_z -= b.m_z; return *this; }
 vec3& vec3::operator+=(const vec3 &b) { m_x += b.m_x; m_y += b.m_y; m_z += b.m_z; return *this; }
+vec3& vec3::operator*=(const double &k) { m_x *= k; m_y *= k; m_z *= k; return *this; }
+vec3& vec3::operator/=(const double &k) { 
+  if (k == 0) throw "Divsion by Zero!";
+  m_x /= k; m_y /= k; m_z /= k; return *this; };
 
 bool   vec3::operator==(const vec3 &b) const{ return (m_x == b.m_x && m_y == b.m_y && m_z == b.m_z); }
-vec3   vec3::operator*=(const double &k) const{ return vec3(m_x * k, m_y * k, m_z * k); }
+
 vec3   vec3::operator/=(const vec3 &b) const{return vec3(m_x/b.m_x, m_y/b.m_y, m_z/b.m_z); }
 double vec3::operator[](const size_t idx) const{ // indexed from 0
   if (idx > 2) 
@@ -26,7 +30,7 @@ double vec3::operator[](const size_t idx) const{ // indexed from 0
 // extra methods
 double  vec3::length() const{ return std::sqrt(m_x*m_x + m_y*m_y + m_z*m_z); }
 vec3    vec3::normalize() const{ 
-  double vecLength = length();
+  double vecLength = length() != 0 ? length() : throw "Divison by Zero";
   return vec3(m_x / vecLength, m_y / vecLength, m_z / vecLength); 
 }
 

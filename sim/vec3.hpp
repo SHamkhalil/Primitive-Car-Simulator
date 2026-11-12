@@ -16,8 +16,11 @@ struct vec3{
   vec3& operator+=(const vec3 &b); // adding 2 vectors
   vec3& operator-=(const vec3 &b); // subtracting 2 vectors
   
+  vec3& operator*=(const double &k); // scalar multiplication
+  vec3& operator/=(const double &k); // scalar divison
+  
   vec3 operator/=(const vec3 &b) const; // pairwise vector element divison
-  vec3 operator*=(const double &k) const; // scalar multiplication
+
   bool operator==(const vec3 &b) const; // equal check for 2 vectors
   double operator[](const size_t idx) const;
 

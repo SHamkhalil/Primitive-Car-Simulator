@@ -5,9 +5,9 @@
 
 namespace{
   constexpr double EPSILON = 1e-9;
-  std::vector<vec3> _ = {vec3(1, 2, 3), vec3(2, 3, 4), vec3(12, 23, 81), vec3(1.12, 412.12231, 891.1897391)};
-
+  
   TEST(Vec3Tests, IndexOperatorReturnsCorrectComponent){
+    std::vector<vec3> _ = {vec3(1, 2, 3), vec3(2, 3, 4), vec3(12, 23, 81), vec3(1.12, 412.12231, 891.1897391)};
     EXPECT_NEAR(1, _[0].m_x, EPSILON);
     EXPECT_NEAR(4, _[1].m_z, EPSILON);
     EXPECT_NEAR(23, _[2].m_y, EPSILON);
@@ -16,6 +16,7 @@ namespace{
   }
 
   TEST(Vec3Tests, ScalarMultiplicationProducesCorrectResult){
+    std::vector<vec3> _ = {vec3(1, 2, 3), vec3(2, 3, 4), vec3(12, 23, 81), vec3(1.12, 412.12231, 891.1897391)};
     EXPECT_NEAR(1, _[0].m_x *= 1, EPSILON);
     EXPECT_NEAR(1.12, _[0].m_x *= 1.12, EPSILON);
     EXPECT_NEAR(128.673, _[1].m_y *= 42.891, EPSILON);
@@ -54,11 +55,11 @@ namespace{
   }
 
   TEST(Vec3Tests, NormalizationProducesUnitVector){
-    // length 3.7416573868 _[0]
-    // length
+    std::vector<vec3> _ = {vec3(1, 2, 3), vec3(2, 3, 4), vec3(12, 23, 81), vec3(1.12, 412.12231, 891.1897391)};
     std::vector<vec3> expected = {vec3(0.2672612419, 0.5345224838, 0.8017837257),
                                   vec3(0.3713906764, 0.5570860145, 0.7427813527),
-                                  vec3(0.1410886227, 0.2704198601, 0.9523482030)};
+                                  vec3(0.1410886227, 0.2704198601, 0.9523482030),
+                                  vec3(0.0011406826, 0.4197328125, 0.9076469936)};
     std::vector<vec3> actual = {_[0].normalize(), 
                                 _[1].normalize(),
                                 _[2].normalize(),
@@ -72,6 +73,7 @@ namespace{
   }
 
   TEST(Vec3Tests, LengthReturnsCorrectMagnitude){
+    std::vector<vec3> _ = {vec3(1, 2, 3), vec3(2, 3, 4), vec3(12, 23, 81), vec3(1.12, 412.12231, 891.1897391)};
     EXPECT_NEAR(3.7416573868, _[0].length(), EPSILON);
     EXPECT_NEAR(5.3851648071, _[1].length(), EPSILON);
     EXPECT_NEAR(85.0529246999, _[2].length(), EPSILON);
