@@ -28,26 +28,25 @@ cmake --build --preset debug
 cmake --preset release
 ```
 
-Then build the binaries for release version using:
-
-Build the Release binaries:
+Then build the binaries for Release version using:
 
 ```bash
 cmake --build --preset release
 ```
 
-
+Once the project has been built, you can run the Debug executable using:
 
 ```bash
 ./build/debug/apps/first
 ```
 
-Testing - After building from the source you can run the tests using:
+### Running Tests
+After building the project, run all available tests using:
 
 ```bash
 ctest --test-dir build/debug --output-on-failure
 ```
-If you would like to run a single test use, for example:
+If you would like to run a specific test, use:
 
 ```bash
 ctest --test-dir build/debug -R SpeedConversion
