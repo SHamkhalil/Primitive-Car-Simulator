@@ -8,21 +8,21 @@ struct vec3{
   vec3(double x, double y, double z)
     : m_x(x), m_y(y), m_z(z) {}
   
-  // return new Object vec3
+  bool operator==(const vec3 &b) const; // equal check for 2 vectors
+  double operator[](const size_t idx) const;
+
   vec3 operator+(const vec3 &b) const; // adding 2 vectors 
   vec3 operator-(const vec3 &b) const; // subtracting 2 vectors
-  
+  vec3 operator*(const double &k) const;
+
+  vec3& operator-(); // negation of vector
+
   // return *this
-  vec3& operator+=(const vec3 &b); // adding 2 vectors
-  vec3& operator-=(const vec3 &b); // subtracting 2 vectors
+  vec3& operator+=(const vec3 &b); // adding one vec to another
+  vec3& operator-=(const vec3 &b); // subtracting one vec to another
   
   vec3& operator*=(const double &k); // scalar multiplication
   vec3& operator/=(const double &k); // scalar divison
-  
-  vec3 operator/=(const vec3 &b) const; // pairwise vector element divison
-
-  bool operator==(const vec3 &b) const; // equal check for 2 vectors
-  double operator[](const size_t idx) const;
 
   double length() const;
   vec3 normalize() const;

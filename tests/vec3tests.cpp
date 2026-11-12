@@ -78,4 +78,14 @@ namespace{
     EXPECT_NEAR(5.3851648071, _[1].length(), EPSILON);
     EXPECT_NEAR(85.0529246999, _[2].length(), EPSILON);
   }
+
+  TEST(Vec3Tests, VectorNegationCorrectnessCheck){
+    std::vector<vec3> expected = {vec3(1, 2, 3), vec3(0, 0, 0), vec3(1.12, 412.12231, 891.1897391)},
+                      actual = {vec3(-1, -2, -3), vec3(0, 0, 0), vec3(-1.12, -412.12231, -891.1897391)};
+    
+    for (size_t j = 0; j < expected.size(); ++j)
+      for (size_t i = 0; i < 2; ++i)
+        EXPECT_NEAR(expected[j][i], -actual[j][i], EPSILON);
+
+  }
 }
