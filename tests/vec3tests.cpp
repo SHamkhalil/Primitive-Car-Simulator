@@ -55,15 +55,17 @@ namespace{
   }
 
   TEST(Vec3Tests, NormalizationProducesUnitVector){
-    std::vector<vec3> _ = {vec3(1, 2, 3), vec3(2, 3, 4), vec3(12, 23, 81), vec3(1.12, 412.12231, 891.1897391)};
+    std::vector<vec3> _ = {vec3(1, 2, 3), vec3(2, 3, 4), vec3(12, 23, 81), vec3(1.12, 412.12231, 891.1897391), vec3(0, 0, 0.1231)};
     std::vector<vec3> expected = {vec3(0.2672612419, 0.5345224838, 0.8017837257),
                                   vec3(0.3713906764, 0.5570860145, 0.7427813527),
                                   vec3(0.1410886227, 0.2704198601, 0.9523482030),
-                                  vec3(0.0011406826, 0.4197328125, 0.9076469936)};
+                                  vec3(0.0011406826, 0.4197328125, 0.9076469936),
+                                  vec3(0, 0, 0)};
     std::vector<vec3> actual = {_[0].normalize(), 
                                 _[1].normalize(),
                                 _[2].normalize(),
-                                _[3].normalize()};
+                                _[3].normalize(),
+                                _[4].normalize()};
 
     for (size_t i = 0; i < expected.size(); ++i){
       for (size_t j = 0; j < 3; ++j)
