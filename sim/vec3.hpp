@@ -1,5 +1,8 @@
 #pragma once
 
+#include <cstddef>
+#include <ostream>
+
 struct vec3{
   double m_x; // Forwards
   double m_y; // Left
